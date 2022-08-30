@@ -1,32 +1,53 @@
-export class Matrix {
-  private internalRows: number[][]
-  private internalColumns: number[][]
-  constructor(input: string) {
-    /// Get rows
-    const splitInput: string[] = input.split('\n')
-    const parsedInput: number[][] = splitInput.map(stringRow => {
-      let finalArray: number[] = []
-      stringRow.split(' ').map(stringNum => finalArray.push(Number(stringNum)))
-      return finalArray
-    })
-    /// Get columns
-    const length: number = parsedInput.length
-    const columns: number[][] = []
-    for (let i = 0; i < length; i++) {
-      let tempArray: number[] = []
-      parsedInput.map(arr => tempArray.push(arr[i]))
-      columns.push(tempArray)
-    }
+// export class Matrix {
+//   private internalRows: number[][]
+//   private internalColumns: number[][]
+//   constructor(input: string) {
+//     /// Get rows
+//     const splitInput: string[] = input.split('\n')
+//     const rows: number[][] = splitInput.map(stringRow => {
+//       let finalArray: number[] = []
+//       stringRow.split(' ').map(stringNum => finalArray.push(Number(stringNum)))
+//       return finalArray
+//     })
+//     /// Get columns
+//     const length: number = rows.length
+//     const columns: number[][] = []
+//     for (let i = 0; i < length; i++) {
+//       let tempArray: number[] = []
+//       rows.map(arr => tempArray.push(arr[i]))
+//       columns.push(tempArray)
+//     }
 
-    this.internalRows = parsedInput
-    this.internalColumns = columns
+//     this.internalRows = rows
+//     this.internalColumns = columns
+//   }
+
+//   get rows(): number[][] {
+//     return this.internalRows
+//   }
+
+//   get columns(): number[][] {
+//     return this.internalColumns
+//   }
+// }
+
+export class Matrix {
+  private input: string
+  constructor(input: string) {
+    this.input = input
   }
 
   get rows(): number[][] {
-    return this.internalRows
+    return this.input.split('\n').map(row => row.split(' ').map(Number))
   }
 
   get columns(): number[][] {
-    return this.internalColumns
+    const columns: number[][] = []
+    for (let i = 0; i < this.rows.length; i++) {
+      let tempArray: number[] = []
+      this.rows.map(arr => tempArray.push(arr[i]))
+      columns.push(tempArray)
+    }
+    return columns
   }
 }
