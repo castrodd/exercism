@@ -31,6 +31,27 @@
 //   }
 // }
 
+// export class Matrix {
+  // private input: string
+  // constructor(input: string) {
+    // this.input = input
+  // }
+// 
+  // get rows(): number[][] {
+    // return this.input.split('\n').map(row => row.split(' ').map(Number))
+  // }
+// 
+  // get columns(): number[][] {
+    // const columns: number[][] = []
+    // for (let i = 0; i < this.rows.length; i++) {
+      // let tempArray: number[] = []
+      // this.rows.map(arr => tempArray.push(arr[i]))
+      // columns.push(tempArray)
+    // }
+    // return columns
+  // }
+// }
+
 export class Matrix {
   private input: string
   constructor(input: string) {
@@ -42,12 +63,8 @@ export class Matrix {
   }
 
   get columns(): number[][] {
-    const columns: number[][] = []
-    for (let i = 0; i < this.rows.length; i++) {
-      let tempArray: number[] = []
-      this.rows.map(arr => tempArray.push(arr[i]))
-      columns.push(tempArray)
-    }
+    const columns: number[][] = this.rows.map(arr => [])
+    this.rows.map(arr => arr.map((value, index) => columns[index].push(value)))
     return columns
   }
 }
