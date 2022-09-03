@@ -1,6 +1,6 @@
 export class Robot {
-  private robotName: string = ''
-  private static namesSet = new Set<string>()
+  private currentName: string = ''
+  private static names = new Set<string>()
      
   constructor() {
     this.setName()
@@ -15,8 +15,8 @@ export class Robot {
   }
 
   private setName(): void {
-    this.robotName = ''
-    while (this.robotName === '') {
+    this.currentName = ''
+    while (this.currentName === '') {
       let letters = ''
       let numbers = ''
 
@@ -29,15 +29,15 @@ export class Robot {
       }
 
       let tempName = `${letters}${numbers}`
-      if (!Robot.namesSet.has(tempName)) {
-        Robot.namesSet.add(tempName)
-        this.robotName = tempName
+      if (!Robot.names.has(tempName)) {
+        Robot.names.add(tempName)
+        this.currentName = tempName
       } 
     }
   }
 
   public get name(): string {
-    return this.robotName
+    return this.currentName
   }
 
   public resetName(): void {
@@ -45,6 +45,6 @@ export class Robot {
   }
 
   public static releaseNames(): void {
-    Robot.namesSet.clear()
+    Robot.names.clear()
   }
 }
