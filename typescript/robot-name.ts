@@ -1,5 +1,7 @@
 export class Robot {
   private robotName: string = ''
+  private static namesSet = new Set<string>()
+     
   constructor() {
     this.setName()
   }
@@ -13,6 +15,7 @@ export class Robot {
   }
 
   private setName(): void {
+    this.robotName = ''
     while (this.robotName === '') {
       let letters = ''
       let numbers = ''
@@ -33,14 +36,11 @@ export class Robot {
     }
   }
 
-  private static namesSet = new Set<string>()
-
   public get name(): string {
     return this.robotName
   }
 
   public resetName(): void {
-    this.robotName = ''
     this.setName()
   }
 
