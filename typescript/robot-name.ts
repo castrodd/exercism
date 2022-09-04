@@ -1,9 +1,10 @@
 export class Robot {
-  private currentName: string = ''
-  private static names = new Set<string>()
+  private currentName: string
+  private static names: Set<string>
      
   constructor() {
-    this.setName()
+    Robot.names = new Set<string>()
+    this.currentName = this.setName()
   }
   
   private getLetter(): string {
@@ -14,26 +15,23 @@ export class Robot {
     return String.fromCodePoint(Math.ceil(Math.random()*10)+47)
   }
 
-  private setName(): void {
+  private setName(): string {
     this.currentName = ''
-    while (this.currentName === '') {
-      let letters = ''
-      let numbers = ''
 
-      while (letters.length < 2) {
-        letters += this.getLetter()
-      }
-
-      while(numbers.length < 3) {
-        numbers += this.getNumber()
-      }
-
-      let tempName = `${letters}${numbers}`
-      if (!Robot.names.has(tempName)) {
-        Robot.names.add(tempName)
-        this.currentName = tempName
-      } 
+    for (let chars = 0; chars < 2; chars++) {
+      this.currentName += this.getLetter()
     }
+
+    for (let chars = 0; chars < 3; chars++) {
+      this.currentName += this.getNumber()
+    }
+
+    if (Robot.names.has(this.currentName)) {
+      this.setName()
+    }
+
+    Robot.names.add(this.currentName)
+    return this.currentName
   }
 
   public get name(): string {
@@ -41,7 +39,7 @@ export class Robot {
   }
 
   public resetName(): void {
-    this.setName()
+    this.currentName = this.setName()
   }
 
   public static releaseNames(): void {
