@@ -10,6 +10,20 @@ export class GradeSchool {
   }
 
   add(name: string, gradeLevel: number): void {
+    this.removeDuplicates(name)
+    
+    this.internalRoster[gradeLevel] ?
+      this.internalRoster[gradeLevel].push(name)
+      : this.internalRoster[gradeLevel] = [name]
+    
+    this.internalRoster[gradeLevel].sort()
+  }
+
+  grade(gradeLevel: number): string[] {
+    return this.roster()[gradeLevel] ?? []
+  }
+
+  private removeDuplicates(name: string): void {
     const keys = Object.keys(this.internalRoster)
     const nameCurrentKey = Object.values(this.internalRoster)
       .map(arr => arr.indexOf(name) > -1)
@@ -19,19 +33,5 @@ export class GradeSchool {
       this.internalRoster[currentKey] = this.internalRoster[currentKey]
         .filter(oldName => oldName !== name)
     }
-    
-    if (keys.includes(gradeLevel.toString())) {
-      this.internalRoster[gradeLevel].push(name)
-      this.internalRoster[gradeLevel].sort()
-    } else {
-      this.internalRoster[gradeLevel] = [name]
-    }
-  }
-
-  grade(gradeLevel: number): string[] {
-    if (Object.keys(this.internalRoster).includes(gradeLevel.toString())) {
-      return this.internalRoster[gradeLevel].map(name => name)
-    }
-    return []
   }
 }
